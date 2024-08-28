@@ -57,13 +57,11 @@ dataSources:
           file: ./abis/Prices/Uniswap/Pair.json
 
       eventHandlers:
-        - event: Swap(address,address,address,uint256,uint256,uint256,uint256)
-          handler: handleSwap
         - event: IncreasePoolAmount(address,uint256)
           handler: handleIncreasePoolAmount
         - event: DecreasePoolAmount(address,uint256)
           handler: handleDecreasePoolAmount
-      file: ./src/mappings/vault.ts
+      file: ./src/mappings/mappings.ts
   
   - kind: ethereum
     name: "GlpManager_V1"
@@ -124,7 +122,7 @@ dataSources:
           handler: handleAddLiquidity
         - event: RemoveLiquidity(address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleRemoveLiquidity
-      file: ./src/mappings/mlpManager.ts
+      file: ./src/mappings/mappings.ts
   - kind: ethereum
     name: "GlpManager_V2"
     network: arbitrum-one
@@ -184,4 +182,4 @@ dataSources:
           handler: handleAddLiquidity
         - event: RemoveLiquidity(address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleRemoveLiquidity
-      file: ./src/mappings/mlpManager.ts
+      file: ./src/mappings/mappings.ts

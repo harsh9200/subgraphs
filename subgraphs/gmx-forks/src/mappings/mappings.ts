@@ -4,12 +4,55 @@ import {
   getOrCreateAccount,
 } from "../common/initializers";
 import {
+  DecreasePoolAmount as DecreasePoolAmountEvent,
+  IncreasePoolAmount as IncreasePoolAmountEvent,
+} from "../../generated/Vault/Vault";
+import {
   AddLiquidity as AddLiquidityEvent,
   RemoveLiquidity as RemoveLiquidityEvent,
 } from "../../generated/Vault/MlpManager";
 import * as utils from "../common/utils";
-import { BigInt } from "@graphprotocol/graph-ts";
 import * as constants from "../common/constants";
+import { BigInt, Address } from "@graphprotocol/graph-ts";
+
+export function handleIncreasePoolAmount(event: IncreasePoolAmountEvent): void {
+  const amount = event.params.amount;
+  const tokenAddress = event.params.token;
+
+  const sdk = initializeSDK(event);
+  const pool = getOrCreatePool(sdk);
+  const token = sdk.Tokens.getOrCreateToken(tokenAddress);
+  utils.checkAndUpdateInputTokens(pool, token, amount);
+
+  const inputTokens = pool.getInputTokens();
+  const inputTokenIndex = inputTokens.indexOf(token.id);
+
+  const inputTokenBalances = pool.pool.inputTokenBalances;
+  inputTokenBalances[inputTokenIndex] =
+    inputTokenBalances[inputTokenIndex].plus(amount);
+
+  pool.setInputTokenBalances(inputTokenBalances, true);
+}
+
+export function handleDecreasePoolAmount(event: DecreasePoolAmountEvent): void {
+  const amount = event.params.amount;
+  const tokenAddress = event.params.token;
+
+  const sdk = initializeSDK(event);
+  const pool = getOrCreatePool(sdk);
+
+  const token = sdk.Tokens.getOrCreateToken(tokenAddress);
+  utils.checkAndUpdateInputTokens(pool, token, amount);
+
+  const inputTokens = pool.getInputTokens();
+  const inputTokenIndex = inputTokens.indexOf(token.id);
+
+  const inputTokenBalances = pool.pool.inputTokenBalances;
+  inputTokenBalances[inputTokenIndex] =
+    inputTokenBalances[inputTokenIndex].minus(amount);
+
+  pool.setInputTokenBalances(inputTokenBalances, true);
+}
 
 export function handleAddLiquidity(event: AddLiquidityEvent): void {
   const accountAddress = event.params.account;
