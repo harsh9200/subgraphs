@@ -4,8 +4,8 @@ import { SDK } from "../sdk/protocols/perpfutures";
 import { ProtocolConfig } from "../sdk/protocols/config";
 import { Pool } from "../sdk/protocols/perpfutures/pool";
 import { LiquidityPoolFeeType } from "../common/constants";
-import { TokenInitialize, TokenPrice } from "../modules/token";
 import { Account } from "../sdk/protocols/perpfutures/account";
+import { TokenInitialize, TokenPrice } from "../modules/token";
 import { Address, Bytes, ethereum } from "@graphprotocol/graph-ts";
 
 export function initializeSDK(event: ethereum.Event): SDK {
