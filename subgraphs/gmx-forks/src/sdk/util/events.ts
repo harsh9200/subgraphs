@@ -1,10 +1,10 @@
-import { BigInt, Address, Bytes, ethereum } from "@graphprotocol/graph-ts";
 import {
   BIGINT_ZERO,
   SECONDS_PER_DAY,
   SECONDS_PER_HOUR,
   ZERO_ADDRESS,
 } from "./constants";
+import { BigInt, Address, Bytes, ethereum } from "@graphprotocol/graph-ts";
 
 export class CustomEventType {
   block: ethereum.Block;
