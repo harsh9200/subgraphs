@@ -2,7 +2,11 @@ Reference/
 .vscode/
 
 subgraph.yaml
+!/subgraphs/gmx-forks/subgraph.yaml
+
 versions.ts
+!subgraphs/gmx-forks/src/versions.ts
+
 deploymentJsonContext.json
 **/configurations/configure.ts
 generated/
