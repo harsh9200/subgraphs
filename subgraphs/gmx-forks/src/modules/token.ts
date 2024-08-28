@@ -45,13 +45,7 @@ export class TokenPrice implements TokenPricer {
       return tokenPrice;
     }
 
-    // for escrowed token, use the price of it non escrowed version
-    if (tokenAddress.equals(constants.ESCROWED_MMY_ADDRESS)) {
-      tokenPrice = getUsdPricePerToken(constants.MMY_ADDRESS, block).usdPrice;
-    } else {
-      tokenPrice = getUsdPricePerToken(tokenAddress, block).usdPrice;
-    }
-
+    tokenPrice = getUsdPricePerToken(tokenAddress, block).usdPrice;
     token.lastPriceUSD = tokenPrice;
     token.lastPriceBlockNumber = block.number;
     token._setByEvent = false;
@@ -87,13 +81,7 @@ export class TokenPrice implements TokenPricer {
       return tokenPrice.times(utils.bigIntToBigDecimal(amount, token.decimals));
     }
 
-    // for escrowed token, use the price of its non escrowed version
-    if (tokenAddress.equals(constants.ESCROWED_MMY_ADDRESS)) {
-      tokenPrice = getUsdPricePerToken(constants.MMY_ADDRESS, block).usdPrice;
-    } else {
-      tokenPrice = getUsdPricePerToken(tokenAddress, block).usdPrice;
-    }
-
+    tokenPrice = getUsdPricePerToken(tokenAddress, block).usdPrice;
     token.lastPriceUSD = tokenPrice;
     token.lastPriceBlockNumber = block.number;
     token._setByEvent = false;
